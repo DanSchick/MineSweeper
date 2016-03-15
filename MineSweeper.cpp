@@ -44,9 +44,59 @@ MineSweeper::MineSweeper(int givRows, int givColumns, int mines) {
     }
 }
 
+void MineSweeper::play() {
+    bool gameOver = false;
+    char operation;
+    int x;
+    int y;
+    while(!gameOver){
+        cout << "(u)ncover, (f)lag, or (q)uit: " << endl;
+        cin >> operation;
+        // GO THROUGH OPERATIONS
+        if (operation == 'u'){
+            // UNCOVER OPERATION *********************
+            // get Coords
+            cin >> x;
+            cin >> y;
+            if(x >= 0 && x < rows && y >= 0 && y < columns) {
+                if (grid[y][x]->click()) {
+                    // ITS A MINE
+                    cout << "BOOM.... YOU LOSE" << endl;
+                    gameOver = true;
+                }
+                printGrid();
+            } else {
+                cout << "INVALID COORDS. Please try again." << endl;
+            }
+
+
+        }
+
+
+        else if (operation == 'f'){
+            // FLAG OPERATION **************************
+            // get Coords
+            cin >> x;
+            cin >> y;
+            if(x >= 0 && x < rows && y >= 0 && y < columns) {
+                grid[y][x]->flag();
+                printGrid();
+            } else {
+                cout << "INVALID COORDS. Please try again" << endl;
+            }
+        }
+
+
+
+    }
+
+}
+
 
 void MineSweeper::printGrid() {
+    cout << "  0 1 2 3 4 5 6 7"<< endl;
     for(int i=0;i<rows;i++) {
+        cout << i << " ";
         for (int j = 0; j < columns; j++) {
             cout << *grid[i][j];
         }

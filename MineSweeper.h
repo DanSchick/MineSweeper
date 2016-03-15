@@ -14,6 +14,8 @@ class MineSweeper {
 public:
     MineSweeper(int rows, int columns, int mines);
 
+    void play();
+
     void printGrid();
 
 

@@ -9,5 +9,6 @@ MineSquare::MineSquare() {
 }
 
 bool MineSquare::click() {
+    token = 'B';
     return mine;
 }

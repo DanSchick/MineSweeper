@@ -9,15 +9,8 @@ int main() {
 
     MineSweeper game = MineSweeper(8, 8, 5);
     game.printGrid();
+    game.play();
 
-//    Square* sq;
-//    sq = new NumSquare();
-//    cout << *sq << endl;
-//
-//    vector<Square*> vec;
-//    vec.insert(vec.begin(), sq);
-//
-//    cout << *vec[0] << endl;
 
     return 0;
 }
