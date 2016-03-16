@@ -6,8 +6,7 @@ using namespace std;
 
 int main() {
 
-    MineSweeper game = MineSweeper(8, 8, 5);
-    game.printGrid();
+    MineSweeper game = MineSweeper(8, 8, 8);
     game.play();
 
 

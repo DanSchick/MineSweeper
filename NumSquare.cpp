@@ -9,6 +9,12 @@ NumSquare::NumSquare(){
 
 }
 
+NumSquare::NumSquare(char extra) {
+    isExtra = true;
+    mine = false;
+    token = ':';
+}
+
 void NumSquare::incrementCount() {
     neighbors += 1;
 }

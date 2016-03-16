@@ -12,12 +12,14 @@ class NumSquare: public Square {
 public:
     NumSquare();
 
+    // this represents a number square that's the board padding
+    NumSquare(char extra);
+
     bool isBlank();
     void incrementCount();
     bool click();
-
-protected:
     int neighbors = 0;
+
 
 };
 

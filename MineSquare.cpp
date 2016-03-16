@@ -6,7 +6,7 @@
 
 MineSquare::MineSquare() {
     mine = true;
-    token = 'B';
+    token = 'x';
 }
 
 bool MineSquare::isBlank() {

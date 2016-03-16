@@ -6,6 +6,7 @@
 #define MINESWEEPER_MINESWEEPER_H
 
 #include <vector>
+#include <queue>
 #include "Square.h"
 
 using namespace std;
@@ -29,6 +30,8 @@ protected:
     int columns;
 
     vector<vector<Square*>> grid;
+    queue<Square*> cascadeQueue;
+
 };
 
 
