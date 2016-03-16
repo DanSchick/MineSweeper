@@ -13,9 +13,17 @@ void NumSquare::incrementCount() {
     neighbors += 1;
 }
 
+bool NumSquare::isBlank() {
+    if(neighbors == 0){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 bool NumSquare::click() {
     if(neighbors != 0) {
-        token = (char)neighbors;
+        token = neighbors + '0';
     } else {
         token = '_';
     }

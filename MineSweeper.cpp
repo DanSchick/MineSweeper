@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
@@ -31,17 +32,90 @@ MineSweeper::MineSweeper(int givRows, int givColumns, int mines) {
     }
     // now we place mines randomly
     Square* mSq;
+    srand((unsigned)time(NULL));
     while(mines > 0){
-        int randRow = rand() % rows;
-        int randColumn = rand() % columns;
+        int y = rand() % rows;
+        int x = rand() % columns;
+        cout << x << y << endl;
         // if this location is not already a mine
-        if(!grid[randRow][randColumn]->isMine()){
+        if(!grid[x][y]->isMine()){
             mSq = new MineSquare();
-            grid[randRow][randColumn] = mSq;
+            grid[x][y] = mSq;
+            mines -=1;
         }
 
-        mines -=1;
     }
+
+    findBombs();
+    //TODO: find the neighbor count of each NumSquare
+}
+
+void MineSweeper::findBombs() {
+    printGrid();
+    for(int x=0;x<columns;x++){
+        for(int y=0;y<rows;y++){
+            if(grid[x][y]->isMine()){
+                if(x-1 >= 0){
+                    grid.at(x - 1).at(y)->incrementCount();
+                    if(y-1>=0){
+                        grid.at(x - 1).at(y - 1)->incrementCount();
+                        grid.at(x).at(y - 1)->incrementCount();
+                    } if(y+1<=rows-1){
+                        grid.at(x - 1).at(y + 1)->incrementCount();
+                        grid.at(x).at(y + 1)->incrementCount();
+                    }
+                }
+                if(x+1 <= columns -1){
+                    grid.at(x + 1).at(y)->incrementCount();
+                    if(y-1 >= 0){
+                        grid.at(x + 1).at(y - 1)->incrementCount();
+                    } if(y+1 <= rows-1){
+                        grid.at(x + 1).at(y + 1)->incrementCount();
+                    }
+                }
+                }
+            }
+
+        }
+    }
+
+void MineSweeper::cascade(int x, int y) {
+    if(x-1 >= 0){
+        if(grid.at(x - 1).at(y)->isBlank()){
+            grid.at(x - 1).at(y)->click();
+        }
+        if(y-1>=0){
+            if(grid.at(x - 1).at(y - 1)->isBlank()){
+                grid.at(x - 1).at(y - 1)->click();
+            }
+            if(grid.at(x).at(y - 1)->isBlank()){
+                grid.at(x).at(y - 1)->click();
+            }
+        } if(y+1<=rows-1){
+            if(grid.at(x - 1).at(y + 1)->isBlank()){
+                grid.at(x - 1).at(y + 1)->click();
+            }
+            if(grid.at(x).at(y + 1)->isBlank()){
+                grid.at(x).at(y + 1)->click();
+            }
+        }
+    }
+    if(x+1 <= columns -1){
+        if(grid.at(x + 1).at(y)->isBlank()){
+            grid.at(x + 1).at(y)->click();
+        }
+        if(y-1 >= 0){
+            if(grid.at(x + 1).at(y - 1)->isBlank()){
+                grid.at(x + 1).at(y - 1)->click();
+            }
+        } if(y+1 <= rows-1){
+            if(grid.at(x + 1).at(y + 1)->isBlank()){
+                grid.at(x + 1).at(y + 1)->click();
+            }
+        }
+    }
+
+
 }
 
 void MineSweeper::play() {
@@ -63,13 +137,15 @@ void MineSweeper::play() {
                     // ITS A MINE
                     cout << "BOOM.... YOU LOSE" << endl;
                     gameOver = true;
+                } else {
+                    if(grid[y][x]->isBlank()){
+                        cascade(y, x);
+                    }
+                    printGrid();
                 }
-                printGrid();
             } else {
                 cout << "INVALID COORDS. Please try again." << endl;
             }
-
-
         }
 
 
@@ -94,7 +170,11 @@ void MineSweeper::play() {
 
 
 void MineSweeper::printGrid() {
-    cout << "  0 1 2 3 4 5 6 7"<< endl;
+    cout << "  ";
+    for(int k=0;k<columns;k++){
+        cout << k << " ";
+    }
+    cout << endl;
     for(int i=0;i<rows;i++) {
         cout << i << " ";
         for (int j = 0; j < columns; j++) {

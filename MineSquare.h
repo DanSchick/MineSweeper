@@ -11,6 +11,8 @@
 class MineSquare: public Square {
 public:
     MineSquare();
+    void incrementCount();
+    bool isBlank();
     bool click();
 
 };

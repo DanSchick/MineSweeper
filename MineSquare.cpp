@@ -6,9 +6,19 @@
 
 MineSquare::MineSquare() {
     mine = true;
+    token = 'B';
+}
+
+bool MineSquare::isBlank() {
+    return false;
 }
 
 bool MineSquare::click() {
     token = 'B';
     return mine;
+}
+
+void MineSquare::incrementCount() {
+    mine = true;
+
 }

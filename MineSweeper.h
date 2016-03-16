@@ -16,7 +16,12 @@ public:
 
     void play();
 
+    void findBombs();
+
     void printGrid();
+
+
+    void cascade(int x, int y);
 
 
 protected:

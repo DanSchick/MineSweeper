@@ -12,6 +12,7 @@ class NumSquare: public Square {
 public:
     NumSquare();
 
+    bool isBlank();
     void incrementCount();
     bool click();
 

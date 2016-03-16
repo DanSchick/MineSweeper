@@ -13,7 +13,10 @@ using namespace std;
 class Square {
 public:
     Square() {}
+    // returns 2 if mine, 0 if a number, 1 if no bomb neighbors
+    virtual bool isBlank() = 0;
     virtual bool click() = 0;
+    virtual void incrementCount() = 0;
     bool isMine();
     bool isFlagged();
     bool flag();
