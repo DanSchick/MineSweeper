@@ -6,15 +6,13 @@
 #include "Square.h"
 using namespace std;
 
-bool Square::flag() {
+void Square::flag() {
     flagged = !flagged;
     if(flagged){
         token = 'f';
     } else {
         token = 'x';
     }
-
-
 }
 
 bool Square::isFlagged() {

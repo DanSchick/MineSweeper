@@ -39,7 +39,7 @@ MineSweeper::MineSweeper(int givRows, int givColumns, int mines) {
     }
     // now we place mines randomly
     Square* mSq;
-    srand((unsigned)time(NULL));
+    srand((unsigned)time(0));
     while(mines > 0){
         int rowL = rows + 1;
         int colL = columns + 1;
@@ -100,7 +100,11 @@ void MineSweeper::cascade(int x, int y) {
         }
         cascadeQueue.pop();
         cout << "x: " << sq->x << " Y: " << sq->y << endl;
+        // if the square has no bomb neighors and is not extra, we have to uncover it's neighbors
         if(sq->isBlank() && !sq->isExtra){
+            // Each if statement is for a neighbor square of the one being cleared
+            // Validate that it's already uncovered and is not an extra
+            // then add it to the queue and uncover it
             if(grid[sq->x-1][sq->y-1]->token == 'x' && !grid[sq->x-1][sq->y-1]->isExtra ) {
                 cascadeQueue.push(grid[sq->x - 1][sq->y - 1]);
                 grid[sq->x - 1][sq->y-1]->click();
@@ -140,6 +144,7 @@ void MineSweeper::cascade(int x, int y) {
 }
 
 void MineSweeper::play() {
+    // define variables we'll need in the game loop
     bool gameOver = false;
     bool won;
     char operation;
@@ -193,10 +198,10 @@ void MineSweeper::play() {
             else if (operation == 'f') {
                 // FLAG OPERATION **************************
                 // get Coords
-                cin >> x;
                 cin >> y;
-                if (x >= 0 && x < rows && y >= 0 && y < columns) {
-                    grid[y][x]->flag();
+                cin >> x;
+                if (x >= 0 && x < rows + 1&& y >= 0 && y < columns + 1) {
+                    grid[x][y]->flag();
                     printGrid();
                 } else {
                     cout << "INVALID COORDS. Please try again" << endl;

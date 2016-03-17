@@ -10,6 +10,9 @@
 
 class MineSquare: public Square {
 public:
+    /**
+     * Creates a square with a mine in it
+     */
     MineSquare();
     void incrementCount();
     bool isBlank();

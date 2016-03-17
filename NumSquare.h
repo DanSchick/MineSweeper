@@ -10,14 +10,21 @@
 
 class NumSquare: public Square {
 public:
+
+    /**
+     * Default constructor.
+     */
     NumSquare();
 
-    // this represents a number square that's the board padding
+    /**
+     * Constructor for the 'buffer' squares on outside of board
+     */
     NumSquare(char extra);
 
     bool isBlank();
     void incrementCount();
     bool click();
+    // number of neighbors that are bombs
     int neighbors = 0;
 
 
