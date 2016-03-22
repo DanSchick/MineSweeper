@@ -19,6 +19,5 @@ bool MineSquare::click() {
 }
 
 void MineSquare::incrementCount() {
-    mine = true;
-
+    // this does nothing, but we must implement it as it's derived from Square.h
 }

@@ -18,6 +18,8 @@ public:
 
     /**
      * Constructor for the 'buffer' squares on outside of board
+     * @param extra any char will do, just a way to seperate from
+     * default constructor
      */
     NumSquare(char extra);
 

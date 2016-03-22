@@ -56,6 +56,7 @@ public:
     int y;
 
 protected:
+    // represents if the square is flagged
     bool flagged = false;
     // true if it's a mine, false otherwise
     bool mine;
