@@ -150,12 +150,13 @@ void MineSweeper::play() {
     char operation;
     int x;
     int y;
+    bool inRange;
     while(!gameOver) {
         // first, we check if the user won the game
         won = false;
         for (vector<Square *> vec : grid) {
             for (Square *chkSq : vec) {
-                if (!chkSq->isMine() && chkSq->token == 'x') {
+                if (!chkSq->isMine() && chkSq->token != 'x') {
                     won = true;
                     break;
                 }
@@ -169,34 +170,48 @@ void MineSweeper::play() {
             cout << "YOU WIN!" << endl;
             gameOver = true;
 
+            // ***********************************************************
             // The user hasn't won. So we keep playing.
         } else {
-            // ***********************************************************
             cout << "(u)ncover, (f)lag, or (q)uit: " << endl;
             cin >> operation;
+
             // GO THROUGH OPERATIONS
             // quit
             if (operation == 'q') { gameOver = true; }
+
+            // UNCOVER OPERATION *********************
             else if (operation == 'u') {
-                // UNCOVER OPERATION *********************
                 // get Coords
                 cin >> y;
                 cin >> x;
-                if (x >= 0 && x < rows + 1 && y >= 0 && y < columns + 1) {
-                    if (grid[x][y]->click()) {
-                        // ITS A MINE
-                        cout << "BOOM.... YOU LOSE" << endl;
-                        gameOver = true;
-                    } else {
-                        cascade(x, y);
-                    }
-                } else {
+                // verify square is within range
+                inRange = x >= 0 && x < rows + 1 && y >= 0 && y < columns + 1;
+
+                if (!inRange) {
+                    // if square isn't valid
                     cout << "INVALID COORDS. Please try again." << endl;
+                } else {
+                    // square is valid
+                    // Attempt to uncover square
+                    if (!grid[x][y]->isFlagged()) {
+                        if (grid[x][y]->click()) {
+                            // ITS A MINE
+                            cout << "BOOM.... YOU LOSE" << endl;
+                            gameOver = true;
+                        } else {
+                            // execute function that uncovers the square(s)
+                            cascade(x, y);
+                        }
+                    } else {
+                        // if square is flagged
+                        cout << "ERROR: Square is flagged" << endl;
+                    }
                 }
             }
 
+            // FLAG OPERATION **************************
             else if (operation == 'f') {
-                // FLAG OPERATION **************************
                 // get Coords
                 cin >> y;
                 cin >> x;
@@ -206,6 +221,10 @@ void MineSweeper::play() {
                 } else {
                     cout << "INVALID COORDS. Please try again" << endl;
                 }
+            } else {
+                cout << "INVALID OPERATION. must be 'u', 'f', or 'q'" << endl;
+                cin.clear();
+                cin.ignore(1000,'\n');
             }
         }
 
@@ -217,7 +236,7 @@ void MineSweeper::play() {
 
 
 void MineSweeper::printGrid() {
-    cout << "  ";
+    cout << " ";
     for(int k=1;k<columns+1;k++){
         cout << k << " ";
     }

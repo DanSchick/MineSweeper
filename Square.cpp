@@ -3,15 +3,23 @@
 //
 
 #include <ostream>
+#include <iostream>
 #include "Square.h"
 using namespace std;
 
 void Square::flag() {
-    flagged = !flagged;
-    if(flagged){
-        token = 'f';
+    // verify that square can be flagged
+    if(token != 'f' && token != 'x'){
+        // we cannot flag this square as it's already uncovered
+        cout << "ERROR: Cannot flag uncovered square" << endl;
     } else {
-        token = 'x';
+        // we can flag the covered square
+        flagged = !flagged; // flips the bool value
+        if (flagged) {
+            token = 'f';
+        } else {
+            token = 'x';
+        }
     }
 }
 
