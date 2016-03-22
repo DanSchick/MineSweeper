@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <time.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -72,8 +73,8 @@ MineSweeper::MineSweeper(int givRows, int givColumns, int mines) {
 void MineSweeper::findBombs() {
     printGrid();
     // loop through grid
-    for(int x=1;x<columns+1;x++){
-        for(int y=1;y<rows+1;y++){
+    for(int y=1;y<columns+1;y++){
+        for(int x=1;x<rows+1;x++){
             // if square is a mine, increment the count of every adjacent square
             if(grid[x][y]->isMine()){
                 grid[x-1][y-1]->incrementCount();
@@ -277,15 +278,19 @@ void MineSweeper::play() {
 
 
 void MineSweeper::printGrid() {
-    cout << " ";
+    cout << "  ";
     for(int k=1;k<columns+1;k++){
-        cout << k << " ";
+        printf("%02d", k);
+        fflush(stdout);
+        cout << " ";
     }
     cout << endl;
     for(int i=1;i<rows+1;i++) {
-        cout << i << " ";
+        printf("%02d", i);
+        fflush(stdout);
+        cout << " ";
         for (int j = 1; j < columns+1; j++) {
-            cout << *grid[i][j];
+            cout << *grid[i][j] << " ";
         }
         cout << endl;
     }
