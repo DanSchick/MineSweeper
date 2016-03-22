@@ -169,7 +169,7 @@ void MineSweeper::cascade(int x, int y) {
 void MineSweeper::play() {
     // define variables we'll need in the game loop
     bool gameOver = false;
-    bool errors = false;
+    bool errors;
     bool won;
     char operation;
     int x;

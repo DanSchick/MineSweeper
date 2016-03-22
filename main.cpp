@@ -1,6 +1,5 @@
 #include <iostream>
 #include "MineSweeper.h"
-#include "NumSquare.h"
 
 using namespace std;
 
